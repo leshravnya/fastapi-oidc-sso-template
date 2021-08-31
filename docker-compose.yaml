@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  mock_user_service:
+    image: quay.io/appvia/mock-oidc-user-server:v0.0.2
+    environment:
+      - PORT=9090
+      - HOST=localhost
+      - CLIENT_ID=my-client
+      - CLIENT_SECRET=my-secret
+      - CLIENT_REDIRECT_URI=http://localhost:8000/auth
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:8000/
+      - 'CLIENT_USERS=
+          {
+            "admin": {"app_id":"myapp","authorization_group":["myapp.Admin","myapp.User"],"sub":"admin"},
+            "user": {"app_id":"myapp","authorization_group":["myapp.User"],"sub":"user"}
+          }
+        '
+    ports:
+      - "9090:9090"
